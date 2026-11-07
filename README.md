@@ -81,3 +81,12 @@ Para usar imagens próprias ou autorizadas, coloque os arquivos na pasta `assets
 - `server.py`: servidor HTTP local, API JSON e SQLite.
 - `assets/placeholder.svg`: ilustração de fallback.
 - `figma-layout.svg`: arte vetorial de referência importável no Figma.
+
+
+## 8. GitHub, banco de dados e publicação
+
+- Este repositório é **público** e atualmente contém um SQLite de demonstração. Arquivos versionados podem ser baixados por qualquer pessoa e suas versões anteriores continuam no histórico do Git. **Não cadastre dados pessoais reais nesse banco e depois envie o arquivo ao GitHub.**
+- O `.gitignore` impede que novos arquivos locais sejam adicionados por engano, mas **não interrompe o rastreamento de arquivos que já estão versionados**, como o SQLite de demonstração. Para usar a aplicação com mensagens reais, remova o banco do controle de versão e proteja seus backups antes de compartilhar o repositório.
+- O servidor Python agora limita a publicação de arquivos estáticos e não permite baixar `.sqlite3`, código Python ou arquivos ocultos diretamente por HTTP. Isso **não** impede a leitura do banco que já está no GitHub, nem torna o servidor adequado para internet pública.
+- **GitHub Pages e Live Server** exibem as páginas estáticas, mas não executam a API Python nem gravam no SQLite. Para cadastrar passeios e receber mensagens localmente, execute `py server.py` e use `http://127.0.0.1:8000`.
+- **Não exponha** o `server.py` por túnel público ou encaminhamento de porta para receber dados reais sem antes implementar autenticação adequada, HTTPS, proteção de dados e limitação de solicitações.
