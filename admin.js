@@ -1,7 +1,150 @@
-let password='',tours=[];const $=s=>document.querySelector(s);const form=$('#tourForm');function item(tag,text){const e=document.createElement(tag);e.textContent=text;return e}async function api(path,method='GET',body){const r=await fetch(path,{method,headers:{'X-Admin-Password':password,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});const data=await r.json();if(!r.ok)throw Error(data.error||'Erro de conexão');return data}
-async function refresh(){tours=await api('/api/tours');const leads=await api('/api/admin/interests');const list=$('#adminTours');list.replaceChildren();for(const t of tours){const box=item('div',`${t.title} · ${t.category} · ${t.verified?'Confirmado':'Exemplo'}`);box.className='admin-item';const edit=item('button','Editar');edit.onclick=()=>{for(const key of ['id','title','category','location','description','image_url','image_credit','provider','contact'])form.elements[key].value=t[key]??'';form.elements.verified.checked=!!t.verified;$('#formTitle').textContent='Editar passeio';form.scrollIntoView({behavior:'smooth'})};const del=item('button','Excluir');del.className='danger';del.onclick=async()=>{if(!confirm('Excluir este passeio?'))return;try{await api('/api/admin/tours/'+t.id,'DELETE');await refresh()}catch(e){alert(e.message)}};box.append(document.createElement('br'),edit,del);list.append(box)}if(!tours.length)list.append(item('p','Nenhum passeio cadastrado.'));const inbox=$('#adminLeads');inbox.replaceChildren();for(const l of leads){const box=item('div',`${l.name} (${l.profile})`);box.className='admin-item';box.append(item('p',l.email),item('p',l.message||'Sem mensagem'),item('small',l.created_at));inbox.append(box)}if(!leads.length)inbox.append(item('p','Nenhuma mensagem recebida.'))}
-$('#loginBtn').onclick=async()=>{password=$('#adminPassword').value;try{await api('/api/admin/check');$('#adminContent').hidden=false;$('#loginStatus').textContent='Acesso autorizado.';await refresh()}catch(e){password='';$('#adminContent').hidden=true;$('#loginStatus').textContent=e.message}};$('#logoutBtn').onclick=()=>{password='';$('#adminPassword').value='';$('#adminContent').hidden=true;$('#loginStatus').textContent='Sessão encerrada.'};
-function clearForm(){form.reset();form.elements.id.value='';$('#formTitle').textContent='Cadastrar passeio'}$('#cancelEdit').onclick=clearForm;
-form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const data=Object.fromEntries(new FormData(form));data.verified=form.elements.verified.checked;const id=data.id;delete data.id;try{await api(id?'/api/admin/tours/'+id:'/api/admin/tours',id?'PUT':'POST',data);$('#saveStatus').textContent='Passeio salvo com sucesso.';clearForm();await refresh()}catch(err){$('#saveStatus').textContent=err.message}});
-$('#exportBtn').onclick=async()=>{try{const data=await api('/api/admin/export');const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='maceio-nautica-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}catch(e){alert(e.message)}};
-$('#deleteLeadsBtn').onclick=async()=>{if(!confirm('Apagar permanentemente todas as mensagens?'))return;try{await api('/api/admin/interests','DELETE');await refresh()}catch(e){alert(e.message)}};
+let password = "",
+  tours = [];
+const $ = (s) => document.querySelector(s);
+const form = $("#tourForm");
+function item(tag, text) {
+  const e = document.createElement(tag);
+  e.textContent = text;
+  return e;
+}
+async function api(path, method = "GET", body) {
+  const r = await fetch(path, {
+    method,
+    headers: {
+      "X-Admin-Password": password,
+      ...(body ? { "Content-Type": "application/json" } : {}),
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await r.json();
+  if (!r.ok) throw Error(data.error || "Erro de conexão");
+  return data;
+}
+async function refresh() {
+  tours = await api("/api/tours");
+  const leads = await api("/api/admin/interests");
+  const list = $("#adminTours");
+  list.replaceChildren();
+  for (const t of tours) {
+    const box = item(
+      "div",
+      `${t.title} · ${t.category} · ${t.verified ? "Confirmado" : "Exemplo"}`,
+    );
+    box.className = "admin-item";
+    const edit = item("button", "Editar");
+    edit.onclick = () => {
+      for (const key of [
+        "id",
+        "title",
+        "category",
+        "location",
+        "description",
+        "image_url",
+        "image_credit",
+        "provider",
+        "contact",
+      ])
+        form.elements[key].value = t[key] ?? "";
+      form.elements.verified.checked = !!t.verified;
+      $("#formTitle").textContent = "Editar passeio";
+      form.scrollIntoView({ behavior: "smooth" });
+    };
+    const del = item("button", "Excluir");
+    del.className = "danger";
+    del.onclick = async () => {
+      if (!confirm("Excluir este passeio?")) return;
+      try {
+        await api("/api/admin/tours/" + t.id, "DELETE");
+        await refresh();
+      } catch (e) {
+        alert(e.message);
+      }
+    };
+    box.append(document.createElement("br"), edit, del);
+    list.append(box);
+  }
+  if (!tours.length) list.append(item("p", "Nenhum passeio cadastrado."));
+  const inbox = $("#adminLeads");
+  inbox.replaceChildren();
+  for (const l of leads) {
+    const box = item("div", `${l.name} (${l.profile})`);
+    box.className = "admin-item";
+    box.append(
+      item("p", l.email),
+      item("p", l.message || "Sem mensagem"),
+      item("small", l.created_at),
+    );
+    inbox.append(box);
+  }
+  if (!leads.length) inbox.append(item("p", "Nenhuma mensagem recebida."));
+}
+$("#loginBtn").onclick = async () => {
+  password = $("#adminPassword").value;
+  try {
+    await api("/api/admin/check");
+    $("#adminContent").hidden = false;
+    $("#loginStatus").textContent = "Acesso autorizado.";
+    await refresh();
+  } catch (e) {
+    password = "";
+    $("#adminContent").hidden = true;
+    $("#loginStatus").textContent = e.message;
+  }
+};
+$("#logoutBtn").onclick = () => {
+  password = "";
+  $("#adminPassword").value = "";
+  $("#adminContent").hidden = true;
+  $("#loginStatus").textContent = "Sessão encerrada.";
+};
+function clearForm() {
+  form.reset();
+  form.elements.id.value = "";
+  $("#formTitle").textContent = "Cadastrar passeio";
+}
+$("#cancelEdit").onclick = clearForm;
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!form.reportValidity()) return;
+  const data = Object.fromEntries(new FormData(form));
+  data.verified = form.elements.verified.checked;
+  const id = data.id;
+  delete data.id;
+  try {
+    await api(
+      id ? "/api/admin/tours/" + id : "/api/admin/tours",
+      id ? "PUT" : "POST",
+      data,
+    );
+    $("#saveStatus").textContent = "Passeio salvo com sucesso.";
+    clearForm();
+    await refresh();
+  } catch (err) {
+    $("#saveStatus").textContent = err.message;
+  }
+});
+$("#exportBtn").onclick = async () => {
+  try {
+    const data = await api("/api/admin/export");
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "maceio-nautica-backup.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (e) {
+    alert(e.message);
+  }
+};
+$("#deleteLeadsBtn").onclick = async () => {
+  if (!confirm("Apagar permanentemente todas as mensagens?")) return;
+  try {
+    await api("/api/admin/interests", "DELETE");
+    await refresh();
+  } catch (e) {
+    alert(e.message);
+  }
+};
