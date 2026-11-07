@@ -1,1 +1,22 @@
-﻿
+# Arquivos locais, credenciais e caches
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Arquivos de banco de dados novos, temporários e backups
+# ATENÇÃO: o SQLite de demonstração já rastreado continua no GitHub
+# mesmo que apareça neste arquivo. Nunca envie dados pessoais reais.
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.bak
+*.backup
+backups/
