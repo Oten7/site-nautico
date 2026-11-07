@@ -3,9 +3,9 @@ Execute: ADMIN_PASSWORD='uma-senha-forte' python server.py
 Não publique este servidor na internet. Use somente em localhost.
 """
 import os, json, sqlite3, hmac, secrets, re
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, unquote
 from datetime import datetime, timezone
 ROOT=Path(__file__).resolve().parent
 DB=ROOT/'maceio_nautica.sqlite3'
@@ -51,6 +51,22 @@ class Handler(SimpleHTTPRequestHandler):
         if length<1 or length>20000:raise ValueError('Corpo da requisição inválido')
         return json.loads(self.rfile.read(length).decode('utf-8'))
     def pathonly(self):return urlsplit(self.path).path
+    def public_static(self):
+        """Serve somente páginas e recursos estáticos; nunca bancos, código ou arquivos ocultos."""
+        path=unquote(self.pathonly())
+        parts=PurePosixPath(path).parts
+        if any(part.startswith('.') for part in parts if part != '/'):
+            return False
+        if path=='/':
+            return True
+        if path.endswith('/'):
+            return False
+        allowed={'.html','.css','.js','.svg','.jpg','.jpeg','.png','.gif','.webp','.ico','.mp4','.webm','.woff','.woff2','.ttf','.otf'}
+        return PurePosixPath(path).suffix.lower() in allowed
+    def do_HEAD(self):
+        if not self.public_static():
+            return self.send_error(404,'Arquivo não encontrado')
+        return super().do_HEAD()
     def do_GET(self):
         path=self.pathonly()
         if path=='/api/tours':
@@ -65,6 +81,7 @@ class Handler(SimpleHTTPRequestHandler):
                 tours=[dict(x) for x in con.execute('SELECT * FROM tours ORDER BY id')]
             return self.send_json(200,{'tours':tours,'interests':interests})
         if path.startswith('/api/'):return self.send_json(404,{'error':'Não encontrado'})
+        if not self.public_static():return self.send_error(404,'Arquivo não encontrado')
         return super().do_GET()
     def do_POST(self):
         path=self.pathonly()
