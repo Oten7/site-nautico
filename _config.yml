@@ -1,0 +1,5 @@
+exclude:
+  - server.py
+  - maceio_nautica.sqlite3
+  - README.md
+  - figma-layout.svg
