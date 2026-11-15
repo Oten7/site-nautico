@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Maceió Náutica: classificados de passeios e experiências náuticas em Maceió (protótipo acadêmico).">
+<title>Passeios | Maceió Náutica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="Maceió Náutica - página inicial">
+      <span class="logo">≈</span>
+      <span>MACEIÓ <b>NÁUTICA</b><small>CLASSIFICADOS DO MAR</small></span>
+    </a>
+    <form class="search" id="searchForm" role="search">
+      <span class="search-loc" title="Região do projeto">📍 Maceió, AL</span>
+      <input id="q" type="search" placeholder="Busque por passeio, local ou embarcação" aria-label="Buscar passeios">
+      <button type="submit" aria-label="Buscar">🔍</button>
+    </form>
+    <div class="nav-actions">
+      <a class="link-btn hide-sm" href="index.html">Sobre o projeto</a>
+      <button type="button" class="link-btn" id="favBtn">♡ Favoritos <span id="favCount">0</span></button>
+      <button type="button" class="button post" id="postBtn">Anunciar passeio</button>
+    </div>
+  </div>
+  <nav class="cats" aria-label="Categorias">
+    <div class="wrap cats-inner" id="cats">
+      <button type="button" class="chip active" data-cat="todos">Todas</button>
+      <button type="button" class="chip" data-cat="barco">🚤 Barco</button>
+      <button type="button" class="chip" data-cat="catamara">⛵ Catamarã</button>
+      <button type="button" class="chip" data-cat="mergulho">🤿 Mergulho</button>
+      <button type="button" class="chip" data-cat="jangada">🛶 Jangada</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <p class="crumbs"><a href="index.html">Início</a> › Alagoas › Maceió › <strong id="crumbCat">Todas as categorias</strong></p>
+
+  <div class="layout">
+    <aside class="side" id="side" aria-label="Filtros">
+      <div class="side-head"><h2>Filtros</h2><button type="button" class="link-btn" id="clearFilters">Limpar</button></div>
+
+      <label class="f">Categoria
+        <select id="fCat">
+          <option value="todos">Todas as categorias</option>
+          <option value="barco">Barco</option>
+          <option value="catamara">Catamarã</option>
+          <option value="mergulho">Mergulho</option>
+          <option value="jangada">Jangada</option>
+        </select>
+      </label>
+
+      <label class="f">Local
+        <select id="fLoc"><option value="">Todos os locais</option></select>
+      </label>
+
+      <fieldset class="f">
+        <legend>Preço por pessoa (R$)</legend>
+        <div class="price-row">
+          <input id="fMin" type="number" min="0" inputmode="numeric" placeholder="Mín.">
+          <span>–</span>
+          <input id="fMax" type="number" min="0" inputmode="numeric" placeholder="Máx.">
+        </div>
+      </fieldset>
+
+      <label class="check"><input type="checkbox" id="fVerified"> Somente informações confirmadas</label>
+      <label class="check"><input type="checkbox" id="fFav"> Somente favoritos</label>
+
+      <div class="safe">
+        <strong>🛟 Dicas de segurança</strong>
+        <p>Confirme valores, horários e a regularização da embarcação direto com o prestador antes de pagar.</p>
+      </div>
+    </aside>
+
+    <section class="results" aria-live="polite">
+      <div class="results-head">
+        <div>
+          <h1>Passeios e experiências náuticas em Maceió</h1>
+          <p id="count" class="count" role="status">Carregando…</p>
+        </div>
+        <div class="sort-row">
+          <button type="button" class="button subtle only-mobile" id="toggleFilters" aria-expanded="false" aria-controls="side">⚙ Filtros</button>
+          <label class="sort">Ordenar por
+            <select id="sort">
+              <option value="recent">Mais recentes</option>
+              <option value="low">Menor preço</option>
+              <option value="high">Maior preço</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="cards" id="cards"></div>
+
+      <div class="empty" id="empty" hidden>
+        <div class="empty-icon">🌊</div>
+        <h3>Nenhum anúncio encontrado</h3>
+        <p>Tente buscar outra palavra ou remover alguns filtros.</p>
+        <button type="button" class="button primary" id="emptyClear">Limpar filtros</button>
+      </div>
+
+      <p class="hint" id="dataStatus"></p>
+      <p class="hint">* Anúncios demonstrativos, com preços e fotos de referência. Horários, valores, rotas e prestadores só devem ser publicados após confirmação.</p>
+    </section>
+  </div>
+
+  <section class="how" aria-label="Como funciona">
+    <article><span>1</span><h3>Pesquise</h3><p>Use a busca, as categorias e os filtros de local e preço.</p></article>
+    <article><span>2</span><h3>Compare</h3><p>Veja foto, valor, local e informações de cada passeio.</p></article>
+    <article><span>3</span><h3>Fale com o prestador</h3><p>Entre em contato direto. A plataforma ainda não faz reservas nem pagamentos.</p></article>
+  </section>
+
+  <section class="provider">
+    <div>
+      <h2>Trabalha com passeios no mar?</h2>
+      <p>Anuncie seu passeio no Maceió Náutica e ganhe mais visibilidade. Os anúncios reais dependem da autorização de cada prestador.</p>
+    </div>
+    <button type="button" class="button post" id="postBtn2">Anunciar passeio</button>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="brand"><span class="logo">≈</span><span>MACEIÓ <b>NÁUTICA</b><small>PROJETO DE EXTENSÃO · UMJ</small></span></div>
+    <div><strong>Desenvolvido por</strong><p>Sebastião Fernandes de Araújo Neto<br>Ariel Marques Duarte<br>Levi Cardoso Miranda da Silva</p></div>
+    <div><strong>Engenharia de Software</strong><p>Centro Universitário Mario Pontes Jucá — UMJ<br>Maceió — AL · 2026</p></div>
+  </div>
+  <div class="wrap footer-bottom">MVP acadêmico · Sem reservas ou pagamentos reais. <a href="admin.html">Administração</a></div>
+</footer>
+
+<dialog id="detailDialog" class="big">
+  <button class="close" id="closeDialog" aria-label="Fechar">×</button>
+  <div id="detailContent"></div>
+</dialog>
+
+<dialog id="postDialog">
+  <button class="close" id="closePost" aria-label="Fechar">×</button>
+  <h2>Anunciar passeio</h2>
+  <p>Deixe seus dados e o que você oferece. A equipe do projeto entra em contato para confirmar as informações antes de publicar.</p>
+  <form id="postForm">
+    <label>Seu nome<input name="name" required maxlength="80" placeholder="Seu nome ou da empresa"></label>
+    <label>Seu e-mail<input name="email" required type="email" maxlength="120" placeholder="voce@email.com"></label>
+    <label>WhatsApp para contato<input name="whatsapp" type="tel" required inputmode="tel" maxlength="16" autocomplete="tel" placeholder="(82) 99999-9999"></label>
+    <label>Tipo de passeio
+      <select name="type" required>
+        <option value="">Selecione</option>
+        <option>Barco</option><option>Catamarã</option><option>Mergulho</option><option>Jangada</option><option>Outro</option>
+      </select>
+    </label>
+    <label>Preço por pessoa (R$)<input name="price" type="number" required min="1" max="999999" step="1" inputmode="numeric" placeholder="Ex.: 120"></label>
+    <label>Foto do passeio (opcional)<input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
+    <label>Detalhes do anúncio<textarea name="message" maxlength="500" rows="3" placeholder="Local de saída, duração, valor aproximado…"></textarea></label>
+    <label class="check"><input type="checkbox" required name="consent"> Autorizo o armazenamento local destes dados para demonstração acadêmica.</label>
+    <button class="button primary" type="submit">Enviar anúncio</button>
+    <p id="postStatus" role="status"></p>
+  </form>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>

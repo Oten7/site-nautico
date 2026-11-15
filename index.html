@@ -1,27 +1,159 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Maceió Náutica: protótipo acadêmico de catálogo de passeios e prestadores náuticos."><title>Maceió Náutica | Explore o mar</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css?v=descubra-20261107"></head><body>
-<header class="header"><div class="wrap nav"><a class="brand" href="#inicio"><span class="logo">≈</span><span>MACEIÓ <b>NÁUTICA</b><small>DESCUBRA O MAR DE ALAGOAS</small></span></a><button id="menuBtn" class="menu-btn" aria-label="Abrir menu" aria-expanded="false">☰</button><nav id="menu"><a href="#inicio">Início</a><a href="#passeios">Passeios</a><a href="#como">Como funciona</a><a href="#contato" class="nav-btn">Participar</a></nav></div></header>
-<main><section id="inicio" class="hero"><div class="wrap hero-inner"><span class="eyebrow">TURISMO NÁUTICO EM MACEIÓ</span><h1>O mar de Maceió<br><em>mais perto de você.</em></h1><p>Descubra passeios, conheça embarcações e encontre informações para explorar o litoral alagoano.</p><a class="button light" href="#passeios">Explorar experiências ↗</a><div class="hero-foot">PLATAFORMA ACADÊMICA · MVP FUNCIONAL</div></div></section>
-<section id="como" class="wrap intro"><div><span class="eyebrow blue">A PROPOSTA</span><h2>Mais informação.<br><em>Melhores escolhas.</em></h2></div><p>Reunimos exemplos de categorias náuticas e criamos um catálogo que pode ser atualizado pelos prestadores participantes. O projeto está em validação com a comunidade.</p></section>
-<section id="passeios" class="explore"><div class="wrap"><div class="section-head"><div><span class="eyebrow blue">EXPLORE AS OPÇÕES</span><h2>Encontre sua próxima <em>experiência.</em></h2></div><p>Fotos relacionadas às atividades e à região de Maceió. Os exemplos não são ofertas confirmadas.</p></div><div class="filters"><label><span>BUSCAR</span><input id="search" type="search" placeholder="Passeio, embarcação, local..."></label><label><span>CATEGORIA</span><select id="category"><option value="todos">Todas as opções</option><option value="barco">Barco</option><option value="catamara">Catamarã</option><option value="mergulho">Mergulho</option><option value="jangada">Jangada</option></select></label><button class="button primary" id="clearFilters">Limpar filtros</button></div><p id="status" class="hint" role="status"></p><div class="cards" id="cards"></div><p class="hint">* Categorias demonstrativas e fotos de referência. Horários, preços, rotas e prestadores só devem ser publicados após confirmação.</p></div></section>
-<section class="wrap steps"><div class="section-head"><div><span class="eyebrow blue">COMO FUNCIONA</span><h2>Simples, do começo ao fim.</h2></div></div><div class="step-grid"><article><span>01</span><h3>Pesquise</h3><p>Filtre os passeios por categoria e palavra-chave.</p></article><article><span>02</span><h3>Conheça</h3><p>Veja informações e localização de cada atividade.</p></article><article><span>03</span><h3>Entre em contato</h3><p>Registre interesse para que o grupo avalie a demanda.</p></article></div></section>
-<!-- Experiências e cultura do litoral -->
-<section id="descubra" class="discover">
-  <div class="wrap discover-inner">
-    <div class="discover-content">
-      <span class="eyebrow">DESCUBRA MACEIÓ</span>
-      <h2>O litoral tem histórias<br><em>para contar.</em></h2>
-      <p>Das jangadas tradicionais aos passeios de barco, descubra diferentes maneiras de conhecer a cultura, as paisagens e as experiências do litoral alagoano.</p>
-      <a href="#passeios" class="button light">Explorar passeios ↗</a>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Maceió Náutica reúne passeios de barco, catamarã, mergulho e jangada em um só lugar. Pesquise, compare e fale direto com quem trabalha no mar de Alagoas.">
+<title>Maceió Náutica | Seu passeio no mar de Alagoas, num só lugar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="landing">
+
+<header class="header">
+  <div class="wrap nav">
+    <a class="brand" href="#inicio" aria-label="Maceió Náutica - início">
+      <span class="logo">≈</span>
+      <span>MACEIÓ <b>NÁUTICA</b><small>DESCUBRA O MAR DE ALAGOAS</small></span>
+    </a>
+    <button id="menuBtn" class="menu-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav id="menu" aria-label="Principal">
+      <a href="#ideia">A ideia</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#como">Como funciona</a>
+      <a href="#prestadores">Para prestadores</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href="passeios.html" class="button post">Ver passeios ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="wrap hero-inner">
+      <span class="eyebrow light">TURISMO NÁUTICO EM MACEIÓ</span>
+      <h1>O mar de Maceió,<br><em>mais perto de você.</em></h1>
+      <p>Barco, catamarã, mergulho e jangada num só lugar. Pesquise, compare valores e locais e fale direto com quem trabalha no mar de Alagoas.</p>
+      <form class="hero-search" action="passeios.html" method="get" role="search">
+        <input name="q" type="search" placeholder="O que você quer fazer? Ex.: jangada, mergulho…" aria-label="Buscar passeios" maxlength="80">
+        <button type="submit">Buscar</button>
+      </form>
+      <div class="hero-actions">
+        <a class="button post" href="passeios.html">Explore nossos passeios ↗</a>
+        <a class="button ghost" href="#como">Como funciona</a>
+      </div>
+      <div class="sail" aria-hidden="true"></div>
+      <p class="hero-foot">Projeto de extensão da UMJ · versão de demonstração</p>
     </div>
-    <div class="discover-art" aria-hidden="true">
-      <div class="discover-circle">
-        <span>MACEIÓ</span>
-        <strong>ALAGOAS</strong>
-        <small>≈ ≈ ≈</small>
+  </section>
+
+  <!-- A IDEIA -->
+  <section id="ideia" class="wrap idea">
+    <div>
+      <span class="eyebrow">A IDEIA</span>
+      <h2>Chega de caçar passeio<br>em dez lugares diferentes.</h2>
+    </div>
+    <div class="idea-text">
+      <p>Hoje, quem quer passear de barco em Maceió precisa garimpar informação em redes sociais, folhetos e contatos soltos. Fica difícil saber o que existe, quanto custa e o que muda de um passeio para o outro.</p>
+      <p>O Maceió Náutica junta tudo em uma vitrine simples, parecida com a de classificados: você busca, filtra por categoria, local e preço, e chama o prestador direto. Para quem trabalha com turismo, é mais um espaço para mostrar o serviço com clareza, e não só pelo preço mais baixo.</p>
+    </div>
+  </section>
+
+  <!-- BENEFÍCIOS -->
+  <section class="wrap benefits" aria-label="Vantagens">
+    <article><span>🔎</span><h3>Tudo em um lugar</h3><p>Passeios de várias modalidades reunidos em uma única busca.</p></article>
+    <article><span>⚖️</span><h3>Compare com clareza</h3><p>Veja preço, local e tipo de passeio lado a lado, sem sair da página.</p></article>
+    <article><span>💬</span><h3>Contato direto</h3><p>Fale com o prestador sem intermediário e tire suas dúvidas antes de decidir.</p></article>
+    <article><span>🌴</span><h3>Feito para Maceió</h3><p>Pensado para o litoral de Alagoas e para quem vive do turismo local.</p></article>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section id="categorias" class="cat-section">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">EXPLORE POR CATEGORIA</span>
+        <h2>Qual é o seu tipo de passeio?</h2>
+      </div>
+      <div class="cat-grid">
+        <a class="cat-tile t1" href="passeios.html?cat=barco"><span>🚤</span><h3>Barco</h3><p>Saídas pelo litoral e praias próximas.</p><b>Ver anúncios →</b></a>
+        <a class="cat-tile t2" href="passeios.html?cat=catamara"><span>⛵</span><h3>Catamarã</h3><p>Conforto para curtir a orla e o pôr do sol.</p><b>Ver anúncios →</b></a>
+        <a class="cat-tile t3" href="passeios.html?cat=mergulho"><span>🤿</span><h3>Mergulho</h3><p>Vida marinha e experiências para iniciantes.</p><b>Ver anúncios →</b></a>
+        <a class="cat-tile t4" href="passeios.html?cat=jangada"><span>🛶</span><h3>Jangada</h3><p>A tradição de Alagoas até as piscinas naturais.</p><b>Ver anúncios →</b></a>
       </div>
     </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como" class="wrap how-section">
+    <div class="head center">
+      <span class="eyebrow">COMO FUNCIONA</span>
+      <h2>Simples, do começo ao fim.</h2>
+    </div>
+    <div class="steps">
+      <article><span>1</span><h3>Pesquise</h3><p>Busque por palavra-chave ou escolha uma categoria e refine por local e preço.</p></article>
+      <article><span>2</span><h3>Confira</h3><p>Abra o anúncio para ver foto, valor, local, descrição e dicas de segurança.</p></article>
+      <article><span>3</span><h3>Fale com o prestador</h3><p>Entre em contato direto para combinar horário, valor e detalhes do passeio.</p></article>
+    </div>
+    <div class="center"><a class="button post" href="passeios.html">Explore nossos passeios ↗</a></div>
+  </section>
+
+  <!-- PRESTADORES -->
+  <section id="prestadores" class="providers">
+    <div class="wrap providers-inner">
+      <div>
+        <span class="eyebrow light">PARA QUEM TRABALHA COM O MAR</span>
+        <h2>Seu passeio merece<br><em>mais visibilidade.</em></h2>
+        <ul>
+          <li>Apresente seu serviço com foto, local e valor.</li>
+          <li>Seja encontrado por turistas e moradores que já estão procurando.</li>
+          <li>Você decide quais informações e contatos ficam públicos.</li>
+        </ul>
+        <a class="button post" href="passeios.html#anunciar">Quero anunciar meu passeio</a>
+      </div>
+      <div class="providers-art" aria-hidden="true">MACEIÓ<br><b>ALAGOAS</b><small>≈ ≈ ≈</small></div>
+    </div>
+  </section>
+
+  <!-- DÚVIDAS -->
+  <section id="duvidas" class="wrap faq">
+    <div class="head center">
+      <span class="eyebrow">DÚVIDAS FREQUENTES</span>
+      <h2>Antes de começar</h2>
+    </div>
+    <details><summary>Posso reservar e pagar pelo site?</summary><p>Ainda não. O Maceió Náutica mostra os passeios e leva você até o prestador. Reserva, pagamento e disponibilidade em tempo real não fazem parte desta versão.</p></details>
+    <details><summary>Os passeios e preços são reais?</summary><p>Por enquanto, os anúncios são demonstrativos e vêm marcados como “Exemplo”. Valores, horários e contatos só devem ser tratados como oferta depois de confirmados com o prestador.</p></details>
+    <details><summary>Como anuncio meu passeio?</summary><p>Use o botão “Anunciar passeio” na página de passeios e deixe seus dados. A equipe entra em contato para confirmar as informações antes de publicar.</p></details>
+    <details><summary>Quem criou o projeto?</summary><p>O Maceió Náutica é um projeto de extensão do curso de Engenharia de Software do Centro Universitário Mario Pontes Jucá (UMJ), feito por Sebastião Fernandes de Araújo Neto, Ariel Marques Duarte e Levi Cardoso Miranda da Silva.</p></details>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="wrap final-cta">
+    <h2>Pronto para conhecer o mar de Alagoas?</h2>
+    <p>Veja os passeios disponíveis e encontre o seu.</p>
+    <a class="button post big" href="passeios.html">Acesse nosso site ↗</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="brand"><span class="logo">≈</span><span>MACEIÓ <b>NÁUTICA</b><small>PROJETO DE EXTENSÃO · UMJ</small></span></div>
+    <div><strong>Desenvolvido por</strong><p>Sebastião Fernandes de Araújo Neto<br>Ariel Marques Duarte<br>Levi Cardoso Miranda da Silva</p></div>
+    <div><strong>Engenharia de Software</strong><p>Centro Universitário Mario Pontes Jucá — UMJ<br>Maceió — AL · 2026</p></div>
   </div>
-</section>
-<section id="contato" class="wrap contact"><div><span class="eyebrow blue">FAÇA PARTE</span><h2>Vamos construir essa<br><em>conexão juntos?</em></h2><p>Deixe uma mensagem sobre o projeto. Os dados serão armazenados apenas no banco local do computador que executa o servidor. Não envie informações sensíveis.</p></div><form id="interestForm"><label>Seu nome<input name="name" required maxlength="80" placeholder="Seu nome"></label><label>Seu e-mail<input name="email" required type="email" maxlength="120" placeholder="voce@email.com"></label><label>Perfil<select name="profile" required><option value="">Selecione</option><option>Turista ou morador</option><option>Prestador de serviço náutico</option><option>Outro interessado</option></select></label><label>Mensagem<textarea name="message" maxlength="600" rows="3" placeholder="O que você gostaria de encontrar na plataforma?"></textarea></label><label class="check"><input type="checkbox" required name="consent"> Autorizo o armazenamento local destes dados para demonstração acadêmica.</label><button class="button primary" type="submit">Enviar interesse ↗</button><p id="formStatus" role="status"></p></form></section></main>
-<footer><div class="wrap footer-grid"><div class="brand"><span class="logo">≈</span><span>MACEIÓ <b>NÁUTICA</b><small>PROJETO DE EXTENSÃO · UMJ</small></span></div><div><strong>Desenvolvido por</strong><p>Sebastião Fernandes de Araújo Neto<br>Ariel Marques Duarte<br>Levi Cardoso Miranda da Silva</p></div><div><strong>Engenharia de Software</strong><p>Centro Universitário Mario Pontes Jucá — UMJ<br>Maceió — AL · 2026</p></div></div><div class="wrap footer-bottom">MVP acadêmico · Sem reservas ou pagamentos reais.</div></footer>
-<dialog id="detailDialog"><button class="close" id="closeDialog" aria-label="Fechar">×</button><div id="detailContent"></div><button class="button primary" id="closeDetail">Fechar</button></dialog><script src="script.js"></script></body></html>
+  <div class="wrap footer-bottom"><span>MVP acadêmico · Sem reservas ou pagamentos reais.</span><span><a href="passeios.html">Passeios</a> · <a href="admin.html">Administração</a></span></div>
+</footer>
+
+<script>
+const mb=document.getElementById('menuBtn'),menu=document.getElementById('menu');
+mb.onclick=()=>{const o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',String(o));mb.textContent=o?'×':'☰'};
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.textContent='☰'}));
+const hd=document.querySelector('.header');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>8),{passive:true});
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');x.target.querySelectorAll('article').forEach(a=>a.classList.add('in'));io.unobserve(x.target)}}),{threshold:.1});
+io.observe(document.querySelector('.steps'));document.querySelectorAll('.head').forEach(h=>io.observe(h));
+</script>
+</body>
+</html>

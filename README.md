@@ -19,7 +19,7 @@ py server.py
 ```
 
 Se o comando `py` não funcionar, tente `python server.py`.
-4. Abra **http://127.0.0.1:8000** no navegador.
+4. Abra **http://127.0.0.1:8000** no navegador (landing page). A vitrine de passeios fica em **http://127.0.0.1:8000/passeios.html**.
 5. Abra **http://127.0.0.1:8000/admin.html** para cadastrar e editar passeios. Use a senha definida no terminal.
 6. Para parar, volte ao terminal e pressione **Ctrl+C**.
 
@@ -35,9 +35,9 @@ Se a porta 8000 estiver ocupada, configure outra antes de iniciar:
 **Live Server não é necessário e não ativa o banco.** Abrir `index.html` diretamente mostra um catálogo de demonstração, mas os cadastros e formulários exigem `python server.py`.
 
 ## 3. Como usar
-- Na página inicial, pesquise palavras e escolha uma categoria.
-- Clique em **Ver informações** para abrir os detalhes do passeio.
-- No formulário **Faça parte**, informe nome, e-mail, perfil e mensagem; aceite a autorização para armazenamento local.
+- A página inicial é uma vitrine no estilo de classificados: busca no topo, categorias, filtros laterais (local, faixa de preço, somente confirmados, favoritos) e ordenação por data ou preço.
+- Clique em um anúncio para abrir os detalhes. Use o coração para salvar favoritos (ficam no navegador).
+- O botão **Anunciar passeio** abre um formulário; o pedido vai para a lista de interesses do painel, para a equipe confirmar com o prestador antes de publicar.
 - No painel, entre com a senha, preencha os dados e clique em **Salvar passeio**.
 - Para editar ou excluir, use os botões ao lado dos passeios existentes.
 - O painel mostra os interesses recebidos, permite exportar um backup JSON e apagar as mensagens.
@@ -46,7 +46,9 @@ Se a porta 8000 estiver ocupada, configure outra antes de iniciar:
 ## 4. Banco de dados
 O arquivo `maceio_nautica.sqlite3` é criado automaticamente na primeira execução. O banco tem duas tabelas:
 
-**tours**: id, title, category, location, description, image_url, image_credit, provider, contact, verified.
+**tours**: id, title, category, location, description, image_url, image_credit, provider, contact, verified, price (R$ por pessoa, opcional), created_at.
+
+Se você já tinha um `maceio_nautica.sqlite3` da versão anterior, o servidor adiciona as colunas `price` e `created_at` automaticamente ao iniciar, sem apagar nada (os registros antigos aparecem como "Preço sob consulta"). Para ver os 8 anúncios novos de demonstração, apague o arquivo `.sqlite3` (faça backup antes).
 
 **interests**: id, name, email, profile, message, created_at.
 
@@ -74,19 +76,29 @@ Para usar imagens próprias ou autorizadas, coloque os arquivos na pasta `assets
 - Para produção: migrar para um backend hospedado, autenticação com contas e permissões, HTTPS, política de privacidade e banco com backups e controles de acesso.
 
 ## 7. Estrutura
-- `index.html`: página pública.
+- `index.html`: landing page de apresentação (ideia, categorias, como funciona, prestadores, dúvidas), com botões para a vitrine.
+- `passeios.html`: vitrine de passeios no estilo classificados (busca, filtros, favoritos, detalhes, anunciar). Aceita `?cat=barco` (ou catamara, mergulho, jangada), `?q=palavra` e `#anunciar`.
 - `style.css`: identidade visual responsiva.
-- `script.js`: busca, filtros, modal e formulário.
+- `script.js`: busca, filtros, ordenação, favoritos, detalhes e formulário de anúncio.
 - `admin.html` e `admin.js`: painel CRUD e exportação.
 - `server.py`: servidor HTTP local, API JSON e SQLite.
 - `assets/placeholder.svg`: ilustração de fallback.
 - `figma-layout.svg`: arte vetorial de referência importável no Figma.
 
+## 8. Roteiro de demonstração para o professor
+1. Abra a landing page e mostre a proposta; clique em **Explore nossos passeios** para ir à vitrine com fotos, preços e categorias.
+2. Busque por “jangada”, filtre por faixa de preço e ordene por menor preço.
+3. Salve um favorito e abra os detalhes de um passeio.
+4. Abra o painel, cadastre um passeio de teste com dados fictícios.
+5. Volte ao site, atualize e veja o novo passeio.
+6. Envie um interesse fictício pelo formulário e mostre o registro no painel.
+7. Encerre e reinicie o servidor: o passeio e a mensagem permanecem no banco SQLite.
 
-## 8. GitHub, banco de dados e publicação
+## Fotos enviadas
+As fotos enviadas (formulário "Anunciar passeio" ou painel) ficam na pasta `uploads/`, criada pelo servidor. Aceita JPG, PNG e WebP até 4 MB e reduz a imagem no navegador antes de enviar. Ao salvar um passeio criado a partir de um pedido, o pedido sai da lista de interesses. O upload só funciona com `python server.py` (não no GitHub Pages).
+As fotos que nenhum passeio nem pedido usa mais são apagadas automaticamente: ao iniciar o servidor e depois de qualquer alteração feita no painel (apagar pedido, apagar ou editar passeio). Fotos enviadas há menos de 10 minutos são preservadas, para não apagar uma foto cujo envio ainda está em andamento.
 
-- Este repositório é **público** e atualmente contém um SQLite de demonstração. Arquivos versionados podem ser baixados por qualquer pessoa e suas versões anteriores continuam no histórico do Git. **Não cadastre dados pessoais reais nesse banco e depois envie o arquivo ao GitHub.**
-- O `.gitignore` impede que novos arquivos locais sejam adicionados por engano, mas **não interrompe o rastreamento de arquivos que já estão versionados**, como o SQLite de demonstração. Para usar a aplicação com mensagens reais, remova o banco do controle de versão e proteja seus backups antes de compartilhar o repositório.
-- O servidor Python agora limita a publicação de arquivos estáticos e não permite baixar `.sqlite3`, código Python ou arquivos ocultos diretamente por HTTP. Isso **não** impede a leitura do banco que já está no GitHub, nem torna o servidor adequado para internet pública.
-- **GitHub Pages e Live Server** exibem as páginas estáticas, mas não executam a API Python nem gravam no SQLite. Para cadastrar passeios e receber mensagens localmente, execute `py server.py` e use `http://127.0.0.1:8000`.
-- **Não exponha** o `server.py` por túnel público ou encaminhamento de porta para receber dados reais sem antes implementar autenticação adequada, HTTPS, proteção de dados e limitação de solicitações.
+
+## Publicação no GitHub
+
+GitHub Pages exibe a versão estática; cadastros, uploads e painel com banco exigem o servidor Python local. O banco SQLite e a pasta `uploads/` não são versionados. A configuração do Pages exclui arquivos internos, e o servidor preserva o bloqueio de acesso HTTP a bancos, código Python e arquivos ocultos.

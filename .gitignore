@@ -11,8 +11,7 @@ venv/
 Thumbs.db
 
 # Arquivos de banco de dados novos, temporários e backups
-# ATENÇÃO: o SQLite de demonstração já rastreado continua no GitHub
-# mesmo que apareça neste arquivo. Nunca envie dados pessoais reais.
+# Bancos e uploads são dados locais; não devem ser publicados.
 *.sqlite3
 *.sqlite3-*
 *.db
@@ -20,3 +19,6 @@ Thumbs.db
 *.bak
 *.backup
 backups/
+
+# Fotos enviadas pelo servidor local
+uploads/
