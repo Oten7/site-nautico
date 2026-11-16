@@ -85,15 +85,6 @@ Para usar imagens próprias ou autorizadas, coloque os arquivos na pasta `assets
 - `assets/placeholder.svg`: ilustração de fallback.
 - `figma-layout.svg`: arte vetorial de referência importável no Figma.
 
-## 8. Roteiro de demonstração para o professor
-1. Abra a landing page e mostre a proposta; clique em **Explore nossos passeios** para ir à vitrine com fotos, preços e categorias.
-2. Busque por “jangada”, filtre por faixa de preço e ordene por menor preço.
-3. Salve um favorito e abra os detalhes de um passeio.
-4. Abra o painel, cadastre um passeio de teste com dados fictícios.
-5. Volte ao site, atualize e veja o novo passeio.
-6. Envie um interesse fictício pelo formulário e mostre o registro no painel.
-7. Encerre e reinicie o servidor: o passeio e a mensagem permanecem no banco SQLite.
-
 ## Fotos enviadas
 As fotos enviadas (formulário "Anunciar passeio" ou painel) ficam na pasta `uploads/`, criada pelo servidor. Aceita JPG, PNG e WebP até 4 MB e reduz a imagem no navegador antes de enviar. Ao salvar um passeio criado a partir de um pedido, o pedido sai da lista de interesses. O upload só funciona com `python server.py` (não no GitHub Pages).
 As fotos que nenhum passeio nem pedido usa mais são apagadas automaticamente: ao iniciar o servidor e depois de qualquer alteração feita no painel (apagar pedido, apagar ou editar passeio). Fotos enviadas há menos de 10 minutos são preservadas, para não apagar uma foto cujo envio ainda está em andamento.
